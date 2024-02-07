@@ -1,12 +1,10 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, max as max_
 
-# Inicialize a sessão do Spark
+
 spark = SparkSession.builder \
     .appName("DadoDaOrigem") \
     .getOrCreate()
-
-# Defina os valores para o DataFrame
 data = [
     ("2023-12-01", 3),
     ("2024-01-01", 3),
@@ -17,8 +15,6 @@ data = [
     ("2023-12-01", 4),
     ("2023-12-01", 5)
 ]
-
-# Crie o DataFrame
 df = spark.createDataFrame(data, ["CargaDaBase", "FlagValor"])
 
 # Verifica se na data mais recente  há valores distintos para FlagValor
@@ -36,7 +32,7 @@ def verificar_atualizacao(df):
             return df_ja_atualizado
     return None
 
-# envoke
+# chama funcao
 df_atualizado = verificar_atualizacao(df)
 if df_atualizado is None:
     print("Não há necessidade de atualização.")
